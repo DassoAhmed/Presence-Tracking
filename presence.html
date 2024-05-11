@@ -27,12 +27,12 @@
   doPresence();
 
   // Attach to the "chatroom" channel
-const channel = realtime.channels.get("chatroom");
-await channel.attach((err) => {
-  if (err) {
-    return console.error("Error attaching to the channel.");
-  }
-});
+// const channel = realtime.channels.get("chatroom");
+// await channel.attach((err) => {
+//   if (err) {
+//     return console.error("Error attaching to the channel.");
+//   }
+// });
 
 // Enter the presence set of the "chatroom" channel
 await channel.presence.enter("hello", (err) => {
@@ -42,10 +42,10 @@ await channel.presence.enter("hello", (err) => {
   console.log("This client has entered the presence set.");
 });
 
-channel.presence.update("howdy!", (err) => {
-  if(err) { return console.error("Error updating presence data"); }
-  console.log("Update OK");
-});
+// channel.presence.update("howdy!", (err) => {
+//   if(err) { return console.error("Error updating presence data"); }
+//   console.log("Update OK");
+// });
 
 // Subscribe to the presence set to receive updates
 await channel.presence.subscribe((presenceMessage) => {

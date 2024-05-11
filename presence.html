@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ably Presence</title>
+  </head>
+  <body>
+  </body>
+
+
+  <script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
+<script>
+  const apiKey = "CpzV_Q.x_BGXA:TWpv8ZQSPjMs7HDy1vVaIfIvDzvy8YKLbBCZaaGqaG0"; // Replace with your API key
+  const randomId = Math.random().toString(36).slice(-10); 
+  const realtime = new Ably.Realtime.Promise({
+    key: apiKey,
+    clientId: randomId, // Your ID in the presence set
+  });
+  async function doPresence() {
+    // Connect to Ably
+    await realtime.connection.once("connected");
+    console.log("Connected to Ably!");
+    // Your code goes here
+  }
+  doPresence();
+</script>
+
+
+
+</html>

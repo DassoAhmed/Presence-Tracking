@@ -10,23 +10,21 @@
   </body>
 
 
-<script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
-<script>
-  const apiKey = "CpzV_Q.x_BGXA:TWpv8ZQSPjMs7HDy1vVaIfIvDzvy8YKLbBCZaaGqaG0"; // Replace with your API key
-  const randomId = Math.random().toString(36).slice(-10); 
-  const realtime = new Ably.Realtime.Promise({
-    key: apiKey,
-    clientId: randomId, // Your ID in the presence set
-  });
-  async function doPresence() {
+  <script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
+  <script>
+    const apiKey = "YOUR_ABLY_API_KEY"; // Replace with your API key
+    const randomId = Math.random().toString(36).slice(-10); 
+    const realtime = new Ably.Realtime.Promise({
+      key: apiKey,
+      clientId: randomId, // Your ID in the presence set
+    });
+
+    async function doPresence() {
     // Connect to Ably
     await realtime.connection.once("connected");
     console.log("Connected to Ably!");
     // Your code goes here
-  }
-  doPresence();
-
-  // Attach to the "chatroom" channel
+    // Attach to the "chatroom" channel
 const channel = realtime.channels.get("chatroom");
 await channel.attach((err) => {
   if (err) {
@@ -42,9 +40,16 @@ await channel.presence.enter("hello", (err) => {
   console.log("This client has entered the presence set.");
 });
 
+//Updating your presence data
 channel.presence.update("howdy!", (err) => {
   if(err) { return console.error("Error updating presence data"); }
   console.log("Update OK");
+});
+
+// Subscribe to the presence set to receive updates
+await channel.presence.subscribe((presenceMessage) => {
+  const { action, clientId } = presenceMessage;
+  console.log("Presence update:", action, "from:", clientId);
 });
 
 // Subscribe to the presence set to receive updates
@@ -64,7 +69,9 @@ await channel.presence.subscribe((presenceMessage) => {
       .join("");
   });
 });
-</script>
+  }
+  doPresence();
+  </script>
 
 
 
